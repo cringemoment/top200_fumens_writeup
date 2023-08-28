@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>cringemoment does data science</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.3/css/bulma.min.css">
+    <style>
+      body {
+        background-color: black;
+      }
+      .orange {
+        color: orange;
+      }
+      .section {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+      }
+      .section-content {
+        flex: 1;
+        padding: 20px;
+      }
+      .image {
+        flex: 1;
+        text-align: center;
+        color: orange;
+      }
+
+    </style>
+  </head>
+  <body>
+    <section class="section">
+      <div class="section-content">
+        <h1 class="title orange">Are better PC Mode players more faster? And other pressing questions.</h1>
+        <h2 class="subtitle has-text-white">A project in web scraping and data science</h2>
+      </div>
+      <div class="image">
+        <img src="ppsvspb.png" style="width: 100%;">
+        <h2>tldr: no. but read on, it's cool.</h2>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-content">
+        <p class="paragraph has-text-white">This is the long overdue writeup for one of my data science projects.<br>
+          As most good projects like these, it all started with an innocent debate between me and madkiwi whether flat T pieces or vertical T pieces were more common in PC mode runs. <a href = "https://discord.com/channels/569728778985537585/569728778985537587/1127554650212663346">(Read it here)</a><br><br>
+
+          I argued that vertical T pieces would be more common, because most bcf either used a vertical T piece or didn't use one at all, while madkiwi claimed that placing free T pieces flat makes it easier. <br><br>Of course, to me, nothing is more important than being right on the internet, so I start coding. Using jstris+'s replay to fumen feature, I get some code together to check for vertical T vs flat T pieces in the first 4 pieces, because at this point the debate had shifted to T pieces in the setup.<br><br>
+
+          I will be the first to admit that I was, frankly, dead wrong. Considerably more flat T pieces all around, even in the setup. At this point, though, the nerd part of my brain kicked in and I wanted to see the progression through all the pc mode players.
+        </p>
+      </div>
+      <div class="image">
+        <img src="checker1.png" style="width: 100%;">
+        <h2>the first thrown together code. note that it doesnt actually check for whether it was a t piece or not. woops!</h2>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-content">
+        <p class="paragraph has-text-white">I write some code to get all the leaderboard pc mode replays as fumen. This takes ages, and goes through several rewrites. Finally I get something working, and now it was time to just run the code on it and wait. This goes shockingly well, and I get surprisingly coherent results. If you followed the conversation, you can see my excitement at finding some sensible correlation. Of course, now my head was swirling with other correlations.
+        </p>
+      </div>
+      <div class="image">
+        <img src="3tries.png" style="width: 100%;">
+        <h2>i rewrote the web scraping code three times to finally get it properly right. the first time used selenium to simulate physically clicking the fumen button and grabbing the value. this took an hour. the third time uses the api, and takes 6 minutes.</h2>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-content">
+        <p class="paragraph has-text-white">
+          Shockingly good spread for what the data is.<br><br>
+
+          Of course, at the lower ranges it is much more chaotic. Down at that range, really anything goes. Some people go off the roof with flat T pieces, and some people avoid them entirely.<br><br>
+
+          As the pbs get bigger, though, there is a very clear trend. The better you are, the more flat T pieces you use in the first four pieces. The r value comes out to 0.24, much better than what I was expecting.
+        </p>
+      </div>
+      <div class="image">
+        <img src="tinsetup.png" style="width: 100%;">
+        <h2>the golden ratio is 1.3263 from holifyre if you were wondering. aim for that and be enlightened.</h2>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-content">
+        <p class="paragraph has-text-white">
+          At this point, I have a bazillion ideas. Next thing I wanted to check was 2l relationship. I figured that if lower pb players were worse, they would be more reliant on 2l to get their pbs. Some additional code to collect every stat from the leaderboard, and we have this graph.<br><br>
+          The correlation for 2l reliance is very clear, and by far the strongest stat. It creates some nice arcs at the end, but seems to level out at around 0.101, roughly a 2l every 50 pcs.
+        </p>
+      </div>
+      <div class="image">
+        <img src="2lgraph.png" style="width: 100%;">
+        <h2>this graph cheats. this only include runs with 2l at all. if you include runs without any 2l the correlation gets destroyed.</h2>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-content">
+        <p class="paragraph has-text-white">
+          With the knowledge of where every piece was placed, the next step is to see which pieces were placed where the most. All this data is available in a convenient fumen. <br><br>
+          By far the most common placements are O pieces on the wall, followed by J and L on the wall, I on right wall, and then the butter box O piece. First 2 are legs, next 2 are shoe, 5th could be anything, but I have literally no idea about the 6th one. It forever remains a mystery.
+        </p>
+      </div>
+      <div class="image">
+        <img src="top6pieces.png" style="width: 100%;">
+        <h2>there are a ton of placements that only get placed once, including several valid ones! go out and ruin this data. </h2>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-content">
+        <p class="paragraph has-text-white">
+          Next up are setups. A slight modification to the code and it was done. The results vary if you look at the shape or the setup in specific.<br><br>
+
+          Legs is the most common by far, which makes sense; it works on pretty much every single pc. The setups show clear preference for dumping out as many SZO pieces out as much as possible, with one JL. The first setups to use T are much, much later.<br><br>
+
+          There's also a weird preference to use the J piece early. This doesn't hold for later setups, so I don't really see a reason for this correlation.
+
+        </p>
+      </div>
+      <div class="image">
+        <img src="top6colorsetups.png" style="width: 100%;">
+        <h2>there is <i>one</i> person who used fourlol pattern 3 for 2nd pc on a JOST. if it was you, feel ashamed.</h2>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-content">
+        <p class="paragraph has-text-white">
+          Of course, ignoring the colors and focusing just on the shape varies the results wildly. One simple grayout and it's good to go.<br><br>
+
+          Box gets a huge glowup due to it's huge amount of congruents, and so does hill. Legs stay strong, but drop a little. The piece preference is completely gone, and every setup is nice and mirrored, with seemingly a slight right side bias.<br><br>
+
+          This is where I left this project for a while. I had done everything I wanted to do with this data, and so I went to bed. A couple of months later, I finally get enough motivation to do a proper writeup, and here it is!
+
+        </p>
+      </div>
+      <div class="image">
+        <img src="top6nocolorsetups.png" style="width: 100%;">
+        <h2>only 14 alt legs build were used for right side. ever. gotta love IOSJ legs.</h2>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-content">
+        <p class="paragraph has-text-white">
+          During this writeup, I get curious about ultra, more specifically ppb correlations. The leaderboard stats collector needs a slight modification, but otherwise it's pretty smooth sailing.<br><br>
+
+          Here is where the limitations of simply scraping the keyboard really rears it's ugly head. As everyone is at about the same level, it is extremely clumped around ~120k and so you don't really gleam anything from the wall of scores. The correlation is clear, though. The better you are at ultra, the better you are at ppb.
+        </p>
+      </div>
+      <div class="image">
+        <img src="ppbvspb.png" style="width: 100%;">
+        <h2>the insanely high dot at the top, by the way, is Zepheniah's astounding 413 @ 465. efficiency doesn't get much better than that.</h2>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-content">
+        <p class="paragraph has-text-white">
+          Magic Nyanber is much the same as ppb, but with more weighting towards higher ppb, so I expected the correlation to be significantly better. Nothing surprising here.<br><br>
+
+          The extra sqrt(log(blocks)) is pretty much exactly 1.6 always, so the graph is nearly identical. You can see some dots moving higher and some dots moving lower, but this is essentially the same measure as ppb.
+        </p>
+      </div>
+      <div class="image">
+        <img src="mnvspb.png" style="width: 100%;">
+        <h2>btw, my best mn run is a 707.5, which is a wr. so if any cute catboys want to hit me up yk.</h2>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-content">
+        <h1 class="title orange">Closing thoughts</h1>
+        <p class="paragraph has-text-white">This was really my first huge data science project, and I'm super happy with how it came out. The web scraping went a lot better than I thought it would, and I got to really use matplotlib for the first time. Hopefully this gets more people excited in looking at the numbers side of things.
+      </div>
+      <div class="image">
+        <img src="webscraping.png" style="width: 100%;">
+        <h2>i don't know regex and i suffer for it</h2>
+      </div>
+    </section>
+  </body>
+</html>
